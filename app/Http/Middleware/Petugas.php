@@ -16,8 +16,8 @@ class Petugas
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->level == "Penumpang") {
-            return redirect('/');
+        if ($request->user()->level == "Admin") {
+            return redirect('/home');
         } else {
             return $next($request);
         }

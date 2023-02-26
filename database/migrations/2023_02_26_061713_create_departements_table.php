@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterProjectsTable extends Migration
+class CreateDepartementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMasterProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_projects', function (Blueprint $table) {
+        Schema::create('departements', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
             $table->string('name');
-            $table->string('deskripsi');
+            $table->smallInteger('status');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMasterProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_projects');
+        Schema::dropIfExists('departements');
     }
 }

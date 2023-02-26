@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Transportasi;
+use App\Models\Departement;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class TransportasiController extends Controller
+class DepartementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class TransportasiController extends Controller
      */
     public function index()
     {
-        $category = Category::orderBy('name')->get();
-        $transportasi = Transportasi::with('category')->orderBy('kode')->orderBy('name')->get();
-        return view('server.transportasi.index', compact('category', 'transportasi'));
+        $departement = Departement::orderBy('name')->get();
+        return view('server.departement.index', compact('departement'));
     }
 
     /**
@@ -39,38 +38,33 @@ class TransportasiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'kode' => 'required',
-            'jumlah' => 'required',
-            'category_id' => 'required'
+            'name' => 'required'
         ]);
 
-        Transportasi::updateOrCreate(
+        Departement::updateOrCreate(
             [
                 'id' => $request->id
             ],
             [
                 'name' => $request->name,
-                'kode' => strtoupper($request->kode),
-                'jumlah' => $request->jumlah,
-                'category_id' => $request->category_id,
+                'status' => $request->status
             ]
         );
 
         if ($request->id) {
-            return redirect()->route('transportasi.index')->with('success', 'Success Update Transportasi!');
+            return redirect()->route('departement.index')->with('success', 'Success Update Departement!');
         } else {
-            return redirect()->back()->with('success', 'Success Add Transportasi!');
+            return redirect()->route('departement.index')->with('success', 'Success Add Departement!');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departement  $departement
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Departement $departement)
     {
         //
     }
@@ -78,24 +72,23 @@ class TransportasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departement  $departement
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $category = Category::orderBy('name')->get();
-        $transportasi = Transportasi::find($id);
-        return view('server.transportasi.edit', compact('category', 'transportasi'));
+        $departement = Departement::find($id);
+        return view('server.departement.edit', compact('departement'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Departement  $departement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Departement $departement)
     {
         //
     }
@@ -103,12 +96,12 @@ class TransportasiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Departement  $departement
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Transportasi::find($id)->delete();
-        return redirect()->back()->with('success', 'Success Delete Transportasi!');
+        Departement::find($id)->delete();
+        return redirect()->back()->with('success', 'Success Delete Departement!');
     }
 }

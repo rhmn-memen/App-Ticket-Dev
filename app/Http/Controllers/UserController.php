@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,8 @@ class UserController extends Controller
     public function index()
     {
         $user = User::orderBy('level')->orderBy('name')->get();
-        return view('server.user.index', compact('user'));
+        $departement = Departement::orderBy('name')->get();
+        return view('server.user.index', compact('user','departement'));
     }
 
     /**
@@ -27,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('client.pengaturan');
+        $departement = Departement::orderBy('name')->get();
+        return view('client.pengaturan', compact('departement'));
     }
 
     /**
@@ -42,14 +45,16 @@ class UserController extends Controller
             'name' => 'required|string',
             'username' => 'required|string|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'level' => 'required'
+            'level' => 'required',
+            'dept_id' => 'required'
         ]);
 
         User::create([
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'level' => $request->level
+            'level' => $request->level,
+            'dept_id' => $request->dept_id
         ]);
 
         return redirect()->back()->with('success', 'Success Add User!');
@@ -108,7 +113,8 @@ class UserController extends Controller
         ]);
 
         User::find(Auth::user()->id)->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'dept_id' => $request->dept_id
         ]);
 
         return redirect()->back()->with('success', 'Nama anda berhasil diperbarui!');

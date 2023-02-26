@@ -96,6 +96,7 @@
               <td>Name</td>
               <td>Username</td>
               <td>Level</td>
+              <th>Departement</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -106,6 +107,7 @@
                 <td>{{ $data->name }}</td>
                 <td>{{ $data->username }}</td>
                 <td>{{ $data->level }}</td>
+                <td>{{ $data->departement->name }}</td>
                 <td>
                   <form
                     action="{{ route('user.destroy', $data->id) }}"
@@ -113,6 +115,12 @@
                   >
                     @csrf
                     @method('delete')
+                    <a
+                      href="{{ route('user.edit', $data->id) }}"
+                      type="button"
+                      class="btn btn-warning btn-sm btn-circle"
+                      ><i class="fas fa-edit"></i
+                    ></a>
                     <button
                       type="submit"
                       class="btn btn-danger btn-sm btn-circle"
@@ -187,8 +195,22 @@
               >
                 <option value="" disabled selected>-- Pilih Level User --</option>
                 <option value="Admin">Admin</option>
-                <option value="Petugas">Petugas</option>
-                <option value="Penumpang">Penumpang</option>
+                <option value="User">User</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dept_id">Departement</label><br>
+              <select
+                class="select2 form-control"
+                id="dept_id"
+                name="dept_id"
+                required
+                style="width: 100%; color: #6e707e;"
+              >
+                <option value="0" disabled selected>-- Pilih Departement --</option>
+                @foreach ($departement as $dept)
+                  <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                @endforeach
               </select>
             </div>
             <div class="form-group">
