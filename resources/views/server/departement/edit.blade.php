@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Edit Transportasi')
-@section('heading', 'Edit Transportasi')
+@section('title', 'Edit Departement')
+@section('heading', 'Edit Departement')
 @section('styles')
   <link href="{{ asset('vendor/select2/dist/css/select2.min.css') }}" rel="stylesheet"/>
   <style>
@@ -46,10 +46,10 @@
 @endsection
 @section('content')
   <div class="card shadow mb-4 mt-2">
-    <form action="{{ route('transportasi.store') }}" method="POST">
+    <form action="{{ route('departement.store') }}" method="POST">
       @csrf
       <div class="card-body">
-        <input type="hidden" name="id" value="{{ $transportasi->id }}">
+        <input type="hidden" name="id" value="{{ $departement->id }}">
         <div class="form-group">
           <label for="name">Name</label>
           <input
@@ -57,55 +57,20 @@
             class="form-control"
             id="name"
             name="name"
-            value="{{ $transportasi->name }}"
+            value="{{ $departement->name }}"
             required
           />
         </div>
         <div class="form-group">
-          <label for="kode">Kode</label>
-          <input
-            type="text"
-            class="form-control"
-            id="kode"
-            name="kode"
-            value="{{ $transportasi->kode }}"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="jumlah">Jumlah Kursi</label>
-          <input
-            type="text"
-            class="form-control"
-            id="jumlah"
-            name="jumlah"
-            onkeypress="return inputNumber(event)"
-            value="{{ $transportasi->jumlah }}"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="category_id">Category</label><br>
-          <select
-            class="select2 form-control"
-            id="category_id"
-            name="category_id"
-            required
-            style="width: 100%; color: #6e707e;"
-          >
-            <option value="" disabled>-- Pilih Category --</option>
-            @foreach ($category as $data)
-              <option value="{{ $data->id }}"
-                @if ($data->id == $transportasi->category_id)
-                  selected
-                @endif
-              >{{ $data->name }}</option>
-            @endforeach
-          </select>
+          <label for="name">Status</label><br>
+          <input type="radio" name="status" id="status" value="1" {{$departement->status == 1 ? 'checked':''}}>
+          <label for="status">Aktif</label>&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" id="status" value="2"{{$departement->status == 2 ? 'checked':''}}>
+          <label for="status">Non Aktif</label>
         </div>
       </div>
       <div class="card-footer">
-        <a href="{{ route('transportasi.index') }}" class="btn btn-warning mr-2">Kembali</a>
+        <a href="{{ route('departement.index') }}" class="btn btn-warning mr-2">Kembali</a>
         <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
     </form>

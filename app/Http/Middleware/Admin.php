@@ -16,10 +16,6 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->level == "User") {
-            return redirect('/petugas');
-        } else {
-            return $next($request);
-        }
+        return $next($request);
     }
 }

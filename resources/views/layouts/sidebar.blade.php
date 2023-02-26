@@ -2,9 +2,9 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
     <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-ticket-alt"></i>
+      <i class="fas fa-project-diagram"></i>  
     </div>
-    <div class="sidebar-brand-text mx-3">Ticket</div>
+    <div class="sidebar-brand-text mx-3">PPS.V1</div>
   </a>
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
@@ -22,24 +22,11 @@
     </a>
     <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="{{ route('rute.index') }}">Rute</a>
-        <a class="collapse-item" href="{{ route('transportasi.index') }}">Transportasi</a>
-        <a class="collapse-item" href="{{ route('category.index') }}">Category</a>
         <a class="collapse-item" href="{{ route('user.index') }}">User</a>
+        <a class="collapse-item" href="{{ route('departement.index') }}">Departement</a>
+        <a class="collapse-item" href="{{ route('project.index') }}">Master Project</a>
       </div>
     </div>
-  </li>
-  <!-- Nav Item - Verifikasi -->
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('petugas') }}">
-      <i class="fas fa-clipboard-check"></i>
-      <span>Verifikasi</span></a>
-  </li>
-  <!-- Nav Item - Transaksi -->
-  <li class="nav-item">
-    <a class="nav-link" href="{{ route('transaksi') }}">
-      <i class="fas fa-shopping-cart"></i>
-      <span>Transaksi</span></a>
   </li>
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

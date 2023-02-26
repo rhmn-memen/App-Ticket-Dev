@@ -82,14 +82,6 @@
             <div class="container my-auto">
               <div class="copyright text-center my-auto">
                 <span>
-                  Copyright &copy; 2020
-                  @if (date('Y') != '2020')
-                    - {{ date('Y') }}
-                  @endif
-                  &nbsp; All rights reserved • by
-                  <a href="https://github.com/adhiariyadi/" target="_blank"
-                    >Adhi Ariyadi</a
-                  >.
                 </span>
               </div>
             </div>

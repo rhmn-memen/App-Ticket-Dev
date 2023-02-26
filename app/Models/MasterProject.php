@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class MasterProject extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'user_id',
+        'deskripsi'
+    ];
+
+    protected $table = 'master_projects';
 }

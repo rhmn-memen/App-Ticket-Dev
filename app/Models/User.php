@@ -16,11 +16,18 @@ class User extends Authenticatable
         'username',
         'password',
         'level',
+        'dept_id'
     ];
 
     protected $hidden = [
         'password',
     ];
 
+    public function departement()
+    {
+      return $this->belongsTo('App\Models\Departement','dept_id', 'id');
+    }
+
     protected $table = 'users';
+
 }

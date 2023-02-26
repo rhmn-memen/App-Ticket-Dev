@@ -95,6 +95,25 @@
                 required
               />
             </div>
+            <div class="form-group">
+              <label for="dept_id">Departement</label><br>
+              <select
+                class="select2 form-control"
+                id="dept_id"
+                name="dept_id"
+                required
+                style="width: 100%; color: #6e707e;"
+              >
+                <option value="" disabled>-- Pilih Departement --</option>
+                @foreach ($departement as $data)
+                  <option value="{{ $data->id }}"
+                    @if ($data->id == Auth::user()->dept_id )
+                      selected
+                    @endif
+                  >{{ $data->name }}</option>
+                @endforeach
+              </select>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">

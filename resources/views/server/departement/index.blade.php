@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Category')
-@section('heading', 'Category')
+@section('title', 'Departement')
+@section('heading', 'Departement')
 @section('styles')
   <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"/>
 @endsection
@@ -27,26 +27,34 @@
             <tr>
               <td>No</td>
               <td>Name</td>
+              <td>Status</td>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($category as $data)
+            @foreach ($departement as $data)
+            @php
+              if ($data->status == 1) {
+                $status = 'Active';
+              } else if ($data->status == 2) {
+                $status = 'In Active';
+              }
+            @endphp
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $data->name }}</td>
+                <td>{{ $status }}</td>
                 <td>
                   <form
-                    action="{{ route('category.destroy', $data->id) }}"
+                    action="{{ route('departement.destroy', $data->id) }}"
                     method="POST"
                   >
                     @csrf
                     @method('delete')
                     <a
-                      href="javascript:void()"
-                      class="btn btn-warning btn-sm btn-circle btn-edit"
-                      data-id="{{ $data->id }}"
-                      data-name="{{ $data->name }}"
+                      href="{{ route('departement.edit', $data->id) }}"
+                      type="button"
+                      class="btn btn-warning btn-sm btn-circle"
                       ><i class="fas fa-edit"></i
                     ></a>
                     <button
@@ -77,7 +85,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Category</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Departement</h5>
           <button
             type="button"
             class="close"
@@ -87,20 +95,21 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('category.store') }}" method="POST">
+        <form action="{{ route('departement.store') }}" method="POST">
           @csrf
           <div class="modal-body">
             <input type="hidden" name="id">
             <div class="form-group">
               <label for="name">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Name Category"
-                required
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name Departement" required
               />
+            </div>
+            <div class="form-group">
+              <label for="name">Status</label><br>
+              <input type="radio" name="status" id="status1" value="1">
+              <label for="status1">Active</label>&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="status" id="status2" value="2">
+              <label for="status2">In Active</label>
             </div>
           </div>
           <div class="modal-footer">
@@ -124,7 +133,7 @@
 
     $(".btn-add").click(function(){
       $("#modal").modal("show");
-      $(".modal-title").html("Tambah Category");
+      $(".modal-title").html("Tambah Departement");
       $("#id").val("");
       $("#name").val("");
     });
@@ -132,10 +141,12 @@
     $("#dataTable").on("click", ".btn-edit", function () {
       let id = $(this).data("id");
       let name = $(this).data("name");
+      let status = $(this).data("status");
       $("#modal").modal("show");
-      $(".modal-title").html("Edit Category");
+      $(".modal-title").html("Edit Departement");
       $("#id").val(id);
       $("#name").val(name);
+      $("#status").val(status);
     });
   </script>
 @endsection
